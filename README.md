@@ -1,5 +1,5 @@
 # Predicting Charter Booking Cancellation 
-[View Jupyter Notebook](Comparing%20Classifiers.ipynb)
+[View Jupyter Notebook](Predicting%Charter%Booking%Cancellation.ipynb)
 
 ### Problem Statement
 A company that charters private jets has several years worth of bookings data and wants to see if they can develop a model to predict whether or not a booking will cancel. Since the final result is a discrete variable (the charter booking either cancels or does not cancel) and we have a labeled dataset, this is a classification problem. In this analysis, I will explore the different features in the dataset and try out several classification models to see if we can accurately predict whether a charter booking will cancel or not. If the company is able to know ahead of time whether a booking will cancel or not, they can take active measures to prepare a backup trip for the respective aircaft to achieve higher utilization rates across their available fleet.
