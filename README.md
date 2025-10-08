@@ -28,7 +28,17 @@ The dataset consists of 8,353 bookings from 2021 to 2025. The key findings durin
 - ![Cancellation_Rate_by_Trip_Start_Month](images/Cancellation_Rate_by_Trip_Start_Month.png)
 
 ### Data Preprocessing & Feature Engineering
-The cleaned dataset was split into 80% training data and 20% test data. Preprocessing and feature engineering included scaling the numerical features, imputing missing values, and encoding most categorical features with one hot encoding. One categorical column (i.e. Aircraft Size) was encoded using ordinal encoding since there is an inherent hierarchy for the different aircraft sizes.
+The cleaned dataset was split into 80% training data and 20% test data. Preprocessing and feature engineering included scaling the numerical features, imputing missing values, and encoding most categorical features with one hot encoding. One categorical column (i.e. Aircraft Size) was encoded using ordinal encoding since there is an inherent hierarchy for the different aircraft sizes. The final features selected for modeling were:
+
+1. Lead Time - number of days from booking date to the trip's start date
+2. Trip Type - charter vs subcharter
+3. Origin - where the booking originated from (Email, Web, Phone, Dispatch, etc.)
+4. Manufacturer - aircraft manufacturer
+5. Size - aircraft size
+6. Price - price of the charter trip
+7. Flight Distance - distance of the flight in nautical miles
+8. Passengers - number of passengers
+9. Customer Segment - classification of the customer (
 
 ### Modeling
 The baseline model consisted of a dummy classifier that just predicted the most common outcome so its accuracy score was 72% (reflecting the class imbalance with our target variable where 72% did not cancel and 28% cancelled).
