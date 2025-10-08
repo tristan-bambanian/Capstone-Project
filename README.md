@@ -10,7 +10,8 @@ Since the final result we are trying to predict is a discrete variable (the char
 ### Data Preparation and EDA (Exploratory Data Analysis) 
 The dataset consists of 8,353 bookings from 2021 to 2025. The key findings during EDA were:
 - The company changed their flight booking software system in 2021 which resulted in all existing bookings from the previous system being assigned the same Booking Date in the new system. This made it appear as if there were a lot of bookings in April 2021, but this is not true so these 894 bookings were removed bringing the dataset down to 7,459 bookings.
-- Add image
+- ![2021 Flight Software Change Issue]('images/2021_Flight_Software_Change_Issue.png')
+
 - The dataset didn't contain any duplicates, but it did have a good amount of missing values (20%-45%) in some columns such as Trip Class, Customer Segment, and Trip Category. These missing values were later imputed after splitting the data into a train set and test set to avoid data leakage. Missing values were imputed for Trip Class and Trip Category using the most frequent value, and a constant value of "New Retail" was imputed for Customer Segment under the assumption that if the customer segment value was missing, it was probably a new customer.
 - There were some legitimate outliers and some incorrect outliers in the data. The incorrect/impossible outlier values were removed.
 - Univariate analysis of the target variable revealed a class imbalance as only 28.5% of the bookings were cancellations.
