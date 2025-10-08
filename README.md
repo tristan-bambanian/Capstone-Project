@@ -38,7 +38,12 @@ The cleaned dataset was split into 80% training data and 20% test data. Preproce
 6. Price - price of the charter trip
 7. Flight Distance - distance of the flight in nautical miles
 8. Passengers - number of passengers
-9. Customer Segment - classification of the customer (
+9. Customer Segment - type of customer (New Retail, Key Account, Wholesale, etc.)
+10. Trip Class - roundtrip vs one way trip
+11. Trip Category - domestic vs international
+12. Trip Start Month - month the trip started
+13. Trip Start Day - day of the weeek the trip started
+14. Status - whether the trip cancelled or not
 
 ### Modeling
 The baseline model consisted of a dummy classifier that just predicted the most common outcome so its accuracy score was 72% (reflecting the class imbalance with our target variable where 72% did not cancel and 28% cancelled).
