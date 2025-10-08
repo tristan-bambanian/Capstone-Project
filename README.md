@@ -48,7 +48,7 @@ The cleaned dataset was split into 80% training data and 20% test data. Preproce
 ### Modeling
 The baseline model consisted of a dummy classifier that just predicted the most common outcome so its accuracy score was 72% (reflecting the class imbalance with our target variable where 72% did not cancel and 28% cancelled).
 
-The classification models used were logistic regression, K-nearest neighbors, decision tree, SVM (Support Vector Machine), random forest, and a gradient boosting classifier. Evaluation metrics used were accuracy, precision, recall, and F1 scores.
+The classification models used were logistic regression, K-nearest neighbors, decision tree, SVM (Support Vector Machine), random forest, and a gradient boosting classifier. Evaluation metrics to measure model performance were accuracy, precision, recall, and F1 scores.
 
 For this particular problem, the most important evaluation metric is the F1 score since both precision and recall are important in this scenario. A false negative (predicted charter booking won't cancel, but it does) would essentially be an unanticipated cancellation, which is not the worst thing but it does not sit well with the company's aircraft owners and their respective crewmembers since they blocked out part of the schedule/calendar and prepared for the trip. A false positive (predicted charter booking will cancel, but it doesn't) also causes some resource strain on the company since they would begin looking at what other trips they may be able to book on the respective aircraft that they are anticipating a cancellation for. So, the F1 score is a good evaluation metric to look at since it takes both of these into account. 
 
