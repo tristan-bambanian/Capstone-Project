@@ -52,35 +52,56 @@ The classification models used were logistic regression, K-nearest neighbors, de
 
 For this particular problem, the most important evaluation metric is the F1 score since both precision and recall are important in this scenario. A false negative (predicted charter booking won't cancel, but it does) would essentially be an unanticipated cancellation, which is not the worst thing but it does not sit well with the company's aircraft owners and their respective crewmembers since they blocked out part of the schedule/calendar and prepared for the trip. A false positive (predicted charter booking will cancel, but it doesn't) also causes some resource strain on the company since they would begin looking at what other trips they may be able to book on the respective aircraft that they are anticipating a cancellation for. So, the F1 score is a good evaluation metric to look at since it takes both of these into account. 
 
-The first phase of modeling tried these 6 models with default parameters. The decision tree and random forest both suffered from overfitting, although random forest ended up being the best performing model with an F1 score of 54%. In general, we can see that the models did better with precision rather than recall, so they are having an easier time minimizing false positives, but a tougher time minimizing false negatives. In other words, the models are doing a fairly good job at predicting a cancellation when it was in fact a cancellation, but they are missing a lot of true cancellations and predicting that it won't cancel.
+The first phase of modeling tested these 6 models with default parameters. The decision tree and random forest both suffered from overfitting as they scored 100% across all metrics on the training data but performed much worse on the test data. Although random forest ended up being the best performing model with an F1 score of 54%. In general, we can see that the models did better with precision rather than recall, so they are having an easier time minimizing false positives, but a tougher time minimizing false negatives. In other words, the models are doing a fairly good job at predicting a cancellation when it was in fact a cancellation, but they are missing a lot of true cancellations and predicting that it won't cancel.
+#### Default Parameters
 ![Models_with_Default_Parameters](images/Models_with_Default_Parameters.png)
 
 The second phase of modeling involved hyperparameter tuning with grid search to see if optimizing each model's parameters would improve performance. After hyperparameter tuning, certain models such as SVM slightly improved and other models such as Random Forest did slightly worse, but overall performance across the board didn't appear to improve.
+#### After Hyperparameter Tuning
 ![Models_with_Hyperparameter_Tuning](images/Models_with_Hyperparameter_Tuning.png)
 
-The third phase of modeling attempted to address the class imbalance issue using two techniques: SMOTE (Synthetic Minority Oversampling Technique) and Setting the Class_Weight Parameter in Certain Models to *Balanced*. Balancing the classes of the target variable to 50/50 using SMOTE did appear to improve performance, especially in terms of recall. The highest recall score before was 45% by the SVM model and every model after SMOTE exceeded 45% with logistic regression even achieving a recall score of 70% on the test data. However, this improvement seems to have come at the expense of precision scores as they have decreased. The random forest model achieved a 73% precision score previously, but it is now at 61% after SMOTE. Setting the class_weight parameter equal to 'balanced' for all the eligible models (i.e. not KNN or Gradient Boosting) seems to have had a similar effect as SMOTE, where we see improved recall scores but poorer precision scores. Overall the F1 scores improved, but it's still fairly low with our best performing models (SVM and Random Forest) only achieving an F1 score of 60%.
-![Models_with_SMOTE](images/Models_with_SMOTE.png)
-![Models_with_Balanced_Class_Weight](images/Models_with_Balanced_Class_Weight.png)
-![Confusion_Matrix_with_Balanced_Class_Weight](images/Confusion_Matrix_with_Balanced_Class_Weight.png)
+The third phase of modeling attempted to address the class imbalance issue using two techniques: 
+1. SMOTE (Synthetic Minority Oversampling Technique)
+2. Setting the Class_Weight Parameter in Certain Models to *Balanced*  
 
-A relatively simple neural network model consisting of two hidden layers with 200 and 100 neurons respectively was also tried out, but it didn't perform any better than the traditional machine learning models. It achieved a 78% accuracy score, 72% precision score, and 40% recall score, so its performance was essentially the same as the six traditional machine learning models in the first and second phases of modeling.
+Balancing the classes of the target variable to 50/50 using SMOTE did appear to improve performance, especially in terms of recall. The highest recall score before was 45% by the SVM model and every model after SMOTE exceeded 45% with logistic regression even achieving a recall score of 70% on the test data. However, this improvement seems to have come at the expense of precision scores as they have decreased. The random forest model achieved a 73% precision score previously, but it is now at 61% after SMOTE. 
+
+Setting the class_weight parameter equal to 'balanced' for all the eligible models (i.e. not KNN or Gradient Boosting) seems to have had a similar effect as SMOTE, where we see improved recall scores but poorer precision scores. Overall the F1 scores improved, but it's still fairly low with our best performing models (SVM and Random Forest) only achieving an F1 score of 60%.
+#### SMOTE
+![Models_with_SMOTE](images/Models_with_SMOTE.png)
+#### Class_Weight Parameter Set to *Balanced*
+![Models_with_Balanced_Class_Weight](images/Models_with_Balanced_Class_Weight.png)
+#### Class_Weight Parameter Set to *Balanced* (Confusion Matrices)
+![Confusion_Matrix_with_Balanced_Class_Weight](images/Confusion_Matrix_with_Balanced_Class_Weight.png)  
+
+<br />
+<br />
+Lastly, a relatively simple neural network model consisting of two hidden layers with 200 and 100 neurons respectively was also tried out, but it didn't perform any better than the traditional machine learning models. It achieved a 78% accuracy score, 72% precision score, and 40% recall score, so its performance was essentially the same as the six traditional machine learning models in the first and second phases of modeling.
 
 ### Findings
-The nodes of the Decision Tree with its best parameters indicate that the most important feature was whether or not the trip type was Subcharter followed by the number of passengers and the price of the trip.
+Analyzing feature importance from the Decision Tree and Random Forest models showed the 3 most important features being Trip Type, Passengers, and Price. The nodes of the Decision Tree with its best parameters indicate that the most important feature was whether or not the trip type was Subcharter followed by the number of passengers and the price of the trip.
+#### Decision Tree Visualization
 ![Decision_Tree](images/Decision_Tree.png)
-The SHAP plot of the Logistic Regression with its best parameters had similar conclusions in terms of feature importance although in slightly different order. Key findings from the SHAP plot:
+
+A SHAP plot of the Logistic Regression model with its best parameters had similar conclusions in terms of feature importance although in slightly different order. Key findings from the SHAP plot:
 - The most important feature was the number of passengers. The SHAP plot shows that higher numbers of passengers increase the likelihood of cancellation.
-- Subcharter 135 trips decrease the likelihood of cancellation.
+- Subcharter 135 trips have a lower likelihood of cancellation.
 - Longer flight distance trips have a higher likelihood of cancellation.
 - Higher priced trips have a lower likelihood of cancellation.
 - Longer lead times have a higher likelihood of cancellation.
+#### Logistic Regression SHAP Summary Plot
 ![SHAP_Plot](images/SHAP_Plot_for_LGR.png)
 
+Overall, the findings that really surprised me were: 
+- The number of passengers being a top 3 feature in terms of importance. I did not think there would be such a strong relationship between this feature and the model predicting whether the booking would cancel.
+- The origin feature having significantly different cancellation rates. My initial thoughts were that this feature wouldn't even have an effect, so I think it garners further investigation especially for when the origin was dispatch.
+- Earlier during the EDA stage, the month of March having a higher cancellation rate than its surrounding months. The later months (September, October, November, December) having higher cancellation rates makes sense but March seemed a bit strange. This finding also calls for further investigation.
+
 ### Next Steps
-None of the models really performed well enough to be considered for deployment into production, but this could potentially be improved through further improvements. In terms of next steps:
-- Try to quantify the financial impact at different scores (e.g. how much revenue lost at 72% accuracy vs 85% accuracy) to get a better idea of what an acceptable threshold for scoring would be.
+None of the models really performed well enough to be considered for deployment into production, but this could potentially be improved through further refinement. In terms of next steps:
+- Try to quantify the financial impact at different scores (e.g. how much revenue lost at 72% accuracy vs 85% accuracy) to get a better idea of what an acceptable threshold for deployment would be.
 - Assign a $ value to false positives and false negatives to quantify whether it would be better for the models to be more picky or more flexible when predicting cancellations.
-- Get more data, perhaps from another source, with similar features.
+- Get more data (perhaps from another source) with similar features.
 - Go back to the EDA and feature engineering stages, and try to improve the data quality through more extensive imputation techniques, generating new features, and better feature selection.
 
 
