@@ -48,7 +48,7 @@ The third phase of modeling attempted to address the class imbalance issue using
 ![Models_with_Balanced_Class_Weight](images/Models_with_Balanced_Class_Weight.png)
 ![Confusion_Matrix_with_Balanced_Class_Weight](images/Confusion_Matrix_with_Balanced_Class_Weight.png)
 
-A relatively simple neural network model consisting of two hidden layers with 200 and 100 neurons respectively was also tried out, but it didn't perform any better than the traditional machine learning models. It achieved a 77% accuracy score, 67% precision score, and 38% recall score, so its performance was essentially the same as the six traditional machine learning models in the first and second phases of modeling.
+A relatively simple neural network model consisting of two hidden layers with 200 and 100 neurons respectively was also tried out, but it didn't perform any better than the traditional machine learning models. It achieved a 78% accuracy score, 72% precision score, and 40% recall score, so its performance was essentially the same as the six traditional machine learning models in the first and second phases of modeling.
 
 ### Findings
 The nodes of the Decision Tree with its best parameters indicate that the most important feature was whether or not the trip type was Subcharter followed by the number of passengers and the price of the trip.
