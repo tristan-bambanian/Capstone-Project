@@ -42,7 +42,7 @@ The cleaned dataset was split into 80% training data and 20% test data. Preproce
 10. Trip Class - roundtrip vs one way trip
 11. Trip Category - domestic vs international
 12. Trip Start Month - month the trip started
-13. Trip Start Day - day of the weeek the trip started
+13. Trip Start Day - day of the week the trip started
 14. Status - whether the trip cancelled or not
 
 ### Modeling
